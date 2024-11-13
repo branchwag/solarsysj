@@ -11,6 +11,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.PointLight;
 
 public class SolarSystemApp extends Application { 
 
@@ -36,15 +37,21 @@ public class SolarSystemApp extends Application {
         Group root = new Group();
         root.getChildren().addAll(sun, earth, mars);
 
+        PointLight light = new PointLight(Color.WHITE);
+        light.setTranslateX(0);
+        light.setTranslateY(0);
+        light.setTranslateZ(-200);
+        root.getChildren().add(light);
+
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-500);
+        camera.setTranslateZ(-200);
 
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(0), event -> {
+            new KeyFrame(Duration.ZERO, event -> {
                 earth.setRotate(earth.getRotate() + 1);
                 mars.setRotate(mars.getRotate() + 0.5);
                 }),
-                new KeyFrame(Duration.seconds(1.0 / 60)) //FPS
+                new KeyFrame(Duration.millis(1000.0 / 60)) //FPS
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
