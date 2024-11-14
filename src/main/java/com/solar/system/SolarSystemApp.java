@@ -28,6 +28,13 @@ public class SolarSystemApp extends Application {
         sunMaterial.setSelfIlluminationMap(sunMaterial.getDiffuseMap());
         sun.setMaterial(sunMaterial);
 
+        Sphere mercury = new Sphere(10);
+        PhongMaterial mercuryMaterial = new PhongMaterial();
+        mercuryMaterial.setDiffuseColor(Color.BROWN);
+        mercuryMaterial.setSelfIlluminationMap(mercuryMaterial.getDiffuseMap());
+        mercury.setMaterial(mercuryMaterial);
+        mercury.setTranslateX(100);
+
         Sphere earth = new Sphere(20);
         PhongMaterial earthMaterial = new PhongMaterial();
         earthMaterial.setDiffuseColor(Color.BLUE);
@@ -40,7 +47,7 @@ public class SolarSystemApp extends Application {
         mars.setMaterial(marsMaterial);
         mars.setTranslateX(300);
 
-        root.getChildren().addAll(sun, earth, mars);
+        root.getChildren().addAll(sun, mercury, earth, mars);
 
         PointLight pointLight = new PointLight(Color.WHITE);
         pointLight.setTranslateX(0);
