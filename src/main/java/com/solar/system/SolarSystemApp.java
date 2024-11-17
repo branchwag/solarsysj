@@ -38,70 +38,25 @@ public class SolarSystemApp extends Application {
         sunMaterial.setSelfIlluminationMap(sunMaterial.getDiffuseMap());
         sun.setMaterial(sunMaterial);
 
-        Sphere mercury = new Sphere(10);
-        PhongMaterial mercuryMaterial = new PhongMaterial();
-        mercuryMaterial.setDiffuseColor(Color.GRAY);
-        mercuryMaterial.setSelfIlluminationMap(mercuryMaterial.getDiffuseMap());
-        mercury.setMaterial(mercuryMaterial);
-        mercury.setTranslateX(100);
-
-        Sphere venus = new Sphere(30);
-        PhongMaterial venusMaterial = new PhongMaterial();
-        venusMaterial.setDiffuseColor(Color.BURLYWOOD);
-        venusMaterial.setSelfIlluminationMap(venusMaterial.getDiffuseMap());
-        venus.setMaterial(venusMaterial);
-        venus.setTranslateX(200);
-
-        Sphere earth = new Sphere(20);
-        PhongMaterial earthMaterial = new PhongMaterial();
-        earthMaterial.setDiffuseColor(Color.BLUE);
-        earth.setMaterial(earthMaterial);
-        earth.setTranslateX(300);
-
-        Sphere mars = new Sphere(15);
-        PhongMaterial marsMaterial = new PhongMaterial();
-        marsMaterial.setDiffuseColor(Color.RED);
-        mars.setMaterial(marsMaterial);
-        mars.setTranslateX(400);
-
-        Sphere jupiter = new Sphere(50);
-        PhongMaterial jupiterMaterial = new PhongMaterial();
-        jupiterMaterial.setDiffuseColor(Color.BROWN);
-        jupiter.setMaterial(jupiterMaterial);
-        jupiter.setTranslateX(600);
-
-        Sphere saturn = new Sphere(40);
-        PhongMaterial saturnMaterial = new PhongMaterial();
-        saturnMaterial.setDiffuseColor(Color.GOLDENROD);
-        saturn.setMaterial(saturnMaterial);
-        saturn.setTranslateX(800);
-
-        Sphere uranus = new Sphere(35);
-        PhongMaterial uranusMaterial = new PhongMaterial();
-        uranusMaterial.setDiffuseColor(Color.CORNFLOWERBLUE);
-        uranus.setMaterial(uranusMaterial);
-        uranus.setTranslateX(1100);
-
-        Sphere neptune = new Sphere(35);
-        PhongMaterial neptuneMaterial = new PhongMaterial();
-        neptuneMaterial.setDiffuseColor(Color.BLUE);
-        neptune.setMaterial(neptuneMaterial);
-        neptune.setTranslateX(1400);
+        Sphere mercury = createPlanet(10, Color.GRAY);
+        Sphere venus = createPlanet(30, Color.BURLYWOOD);
+        Sphere earth = createPlanet(20, Color.BLUE);
+        Sphere mars = createPlanet(15, Color.RED);
+        Sphere jupiter = createPlanet(50, Color.BROWN);
+        Sphere saturn = createPlanet(40, Color.GOLDENROD);
+        Sphere uranus = createPlanet(35, Color.CORNFLOWERBLUE);
+        Sphere neptune = createPlanet(35, Color.BLUE);
 
         root.getChildren().addAll(sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
 
         PointLight pointLight = new PointLight(Color.WHITE);
-        pointLight.setTranslateX(0);
-        pointLight.setTranslateY(0);
         pointLight.setTranslateZ(-100);
-
         AmbientLight ambientLight = new AmbientLight(Color.rgb(255, 255, 255, 0.1));
-
         root.getChildren().addAll(pointLight, ambientLight);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-2000);
-        camera.setTranslateY(-200);
+        camera.setTranslateY(-800);
         camera.setTranslateX(700);
         camera.setNearClip(0.1);
         camera.setFarClip(4000.0);
@@ -134,13 +89,21 @@ public class SolarSystemApp extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        Scene scene = new Scene(root, 1200, 600, true);
+        Scene scene = new Scene(root, 1200, 800, true);
         scene.setFill(Color.BLACK);
         scene.setCamera(camera);
 
         primaryStage.setTitle("The Solar System");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Sphere createPlanet(double radius, Color color) {
+        Sphere planet = new Sphere(radius);
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(color);
+        planet.setMaterial(material);
+        return planet;
     }
 
     private void updatePlanetPosition(Sphere planet, double radius, double angle) {
