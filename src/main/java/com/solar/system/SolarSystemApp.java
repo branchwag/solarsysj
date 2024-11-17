@@ -22,7 +22,7 @@ public class SolarSystemApp extends Application {
 
         Group root = new Group();
 
-        Sphere sun = new Sphere(50);
+        Sphere sun = new Sphere(80);
         PhongMaterial sunMaterial = new PhongMaterial();
         sunMaterial.setDiffuseColor(Color.YELLOW);
         sunMaterial.setSelfIlluminationMap(sunMaterial.getDiffuseMap());
@@ -30,24 +30,55 @@ public class SolarSystemApp extends Application {
 
         Sphere mercury = new Sphere(10);
         PhongMaterial mercuryMaterial = new PhongMaterial();
-        mercuryMaterial.setDiffuseColor(Color.BROWN);
+        mercuryMaterial.setDiffuseColor(Color.GRAY);
         mercuryMaterial.setSelfIlluminationMap(mercuryMaterial.getDiffuseMap());
         mercury.setMaterial(mercuryMaterial);
         mercury.setTranslateX(100);
+
+        Sphere venus = new Sphere(30);
+        PhongMaterial venusMaterial = new PhongMaterial();
+        venusMaterial.setDiffuseColor(Color.BURLYWOOD);
+        venusMaterial.setSelfIlluminationMap(venusMaterial.getDiffuseMap());
+        venus.setMaterial(venusMaterial);
+        venus.setTranslateX(200);
 
         Sphere earth = new Sphere(20);
         PhongMaterial earthMaterial = new PhongMaterial();
         earthMaterial.setDiffuseColor(Color.BLUE);
         earth.setMaterial(earthMaterial);
-        earth.setTranslateX(200);
+        earth.setTranslateX(300);
 
         Sphere mars = new Sphere(15);
         PhongMaterial marsMaterial = new PhongMaterial();
         marsMaterial.setDiffuseColor(Color.RED);
         mars.setMaterial(marsMaterial);
-        mars.setTranslateX(300);
+        mars.setTranslateX(400);
 
-        root.getChildren().addAll(sun, mercury, earth, mars);
+        Sphere jupiter = new Sphere(50);
+        PhongMaterial jupiterMaterial = new PhongMaterial();
+        jupiterMaterial.setDiffuseColor(Color.BROWN);
+        jupiter.setMaterial(jupiterMaterial);
+        jupiter.setTranslateX(600);
+
+        Sphere saturn = new Sphere(40);
+        PhongMaterial saturnMaterial = new PhongMaterial();
+        saturnMaterial.setDiffuseColor(Color.GOLDENROD);
+        saturn.setMaterial(saturnMaterial);
+        saturn.setTranslateX(800);
+
+        Sphere uranus = new Sphere(35);
+        PhongMaterial uranusMaterial = new PhongMaterial();
+        uranusMaterial.setDiffuseColor(Color.CORNFLOWERBLUE);
+        uranus.setMaterial(uranusMaterial);
+        uranus.setTranslateX(1100);
+
+        Sphere neptune = new Sphere(35);
+        PhongMaterial neptuneMaterial = new PhongMaterial();
+        neptuneMaterial.setDiffuseColor(Color.BLUE);
+        neptune.setMaterial(neptuneMaterial);
+        neptune.setTranslateX(1400);
+
+        root.getChildren().addAll(sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
 
         PointLight pointLight = new PointLight(Color.WHITE);
         pointLight.setTranslateX(0);
@@ -59,11 +90,11 @@ public class SolarSystemApp extends Application {
         root.getChildren().addAll(pointLight, ambientLight);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-800);
+        camera.setTranslateZ(-3000);
         camera.setTranslateY(-50);
         camera.setNearClip(0.1);
         camera.setFarClip(2000.0);
-        camera.setFieldOfView(35);
+        camera.setFieldOfView(475);
 
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.ZERO, event -> {
