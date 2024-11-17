@@ -85,16 +85,17 @@ public class SolarSystemApp extends Application {
         pointLight.setTranslateY(0);
         pointLight.setTranslateZ(-100);
 
-        AmbientLight ambientLight = new AmbientLight(Color.rgb(255, 255, 255, 0.2));
+        AmbientLight ambientLight = new AmbientLight(Color.rgb(255, 255, 255, 0.1));
 
         root.getChildren().addAll(pointLight, ambientLight);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-3000);
-        camera.setTranslateY(-50);
+        camera.setTranslateZ(-2000);
+        camera.setTranslateY(-200);
+        camera.setTranslateX(700);
         camera.setNearClip(0.1);
-        camera.setFarClip(2000.0);
-        camera.setFieldOfView(475);
+        camera.setFarClip(4000.0);
+        camera.setFieldOfView(65);
 
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.ZERO, event -> {
@@ -112,14 +113,9 @@ public class SolarSystemApp extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        Scene scene = new Scene(root, 800, 600, true);
+        Scene scene = new Scene(root, 1200, 600, true);
         scene.setFill(Color.BLACK);
         scene.setCamera(camera);
-
-        Platform.runLater(() -> {
-            camera.setTranslateZ(-800);
-            camera.setTranslateY(-50);
-            });
 
         primaryStage.setTitle("The Solar System");
         primaryStage.setScene(scene);
