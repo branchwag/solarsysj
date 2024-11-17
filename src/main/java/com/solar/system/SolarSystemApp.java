@@ -56,8 +56,8 @@ public class SolarSystemApp extends Application {
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-2000);
-        camera.setTranslateY(-800);
-        camera.setTranslateX(700);
+        camera.setTranslateY(-100);
+        camera.setTranslateX(0);
         camera.setNearClip(0.1);
         camera.setFarClip(4000.0);
         camera.setFieldOfView(65);
