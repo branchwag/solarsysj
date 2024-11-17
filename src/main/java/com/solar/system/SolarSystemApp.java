@@ -17,9 +17,19 @@ import javafx.scene.PointLight;
 
 public class SolarSystemApp extends Application { 
 
+    private final double MERCURY_SPEED = 4.0;
+    private final double VENUS_SPEED = 3.0;
+    private final double EARTH_SPEED = 2.5;
+    private final double MARS_SPEED = 2.0;
+    private final double JUPITER_SPEED = 1.5;
+    private final double SATURN_SPEED = 1.2;
+    private final double URANUS_SPEED = 0.9;
+    private final double NEPTUNE_SPEED = 0.7;
+
+    private double angle = 0;
+
     @Override
     public void start(Stage primaryStage) {
-
         Group root = new Group();
 
         Sphere sun = new Sphere(80);
@@ -99,6 +109,17 @@ public class SolarSystemApp extends Application {
 
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.ZERO, event -> {
+                angle += 0.5;
+                
+                updatePlanetPosition(mercury, 100, MERCURY_SPEED * angle);
+                updatePlanetPosition(venus, 200, VENUS_SPEED * angle);
+                updatePlanetPosition(earth, 300, EARTH_SPEED * angle);
+                updatePlanetPosition(mars, 400, MARS_SPEED * angle);
+                updatePlanetPosition(jupiter, 600, JUPITER_SPEED * angle);
+                updatePlanetPosition(saturn, 800, SATURN_SPEED * angle);
+                updatePlanetPosition(uranus, 1100, URANUS_SPEED * angle);
+                updatePlanetPosition(neptune, 1400, NEPTUNE_SPEED * angle);
+
                 mercury.setRotate(mercury.getRotate() + 4);
                 venus.setRotate(venus.getRotate() + 5);
                 earth.setRotate(earth.getRotate() + 0.3);
@@ -120,6 +141,13 @@ public class SolarSystemApp extends Application {
         primaryStage.setTitle("The Solar System");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void updatePlanetPosition(Sphere planet, double radius, double angle) {
+        double x = radius * Math.cos(Math.toRadians(angle));
+        double z = radius * Math.sin(Math.toRadians(angle)) / 2;
+        planet.setTranslateX(x);
+        planet.setTranslateZ(z);
     }
 
     public static void main(String[] args) {
