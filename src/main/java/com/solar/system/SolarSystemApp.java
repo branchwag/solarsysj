@@ -98,8 +98,14 @@ public class SolarSystemApp extends Application {
 
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.ZERO, event -> {
-                earth.setRotate(earth.getRotate() + 1);
-                mars.setRotate(mars.getRotate() + 0.5);
+                mercury.setRotate(mercury.getRotate() + 4);
+                venus.setRotate(venus.getRotate() + 5);
+                earth.setRotate(earth.getRotate() + 0.3);
+                mars.setRotate(mars.getRotate() + 0.3);
+                jupiter.setRotate(jupiter.getRotate() + 0.1);
+                saturn.setRotate(saturn.getRotate() + 0.1);
+                uranus.setRotate(uranus.getRotate() + 0.2);
+                neptune.setRotate(neptune.getRotate() + 0.2);
                 }),
                 new KeyFrame(Duration.millis(1000.0 / 60)) //FPS
         );
