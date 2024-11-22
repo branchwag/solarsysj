@@ -1,2 +1,3 @@
 module-info.class
+com/solar/system/Star.class
 com/solar/system/SolarSystemApp.class

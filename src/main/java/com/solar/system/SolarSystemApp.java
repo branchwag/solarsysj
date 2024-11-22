@@ -10,10 +10,33 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.PointLight;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+
+class Star extends Circle {
+    private final Random random = new Random();
+    private double baseOpacity;
+
+    public Star(double x, double y, double z) {
+        super(1.5, Color.WHITE);
+        setTranslateX(x);
+        setTranslateY(y);
+        setTranslateZ(z);
+        baseOpacity = 0.3 + random.nextDouble() * 0.7;
+        setOpacity(baseOpacity);
+    }
+
+    public void twinkle() {
+        double variation = (random.nextDouble() - 0.5) * 0.3;
+        setOpacity(Math.min(1, Math.max(0.1, baseOpacity + variation)));
+    }
+}
 
 public class SolarSystemApp extends Application { 
 
@@ -27,10 +50,51 @@ public class SolarSystemApp extends Application {
     private final double NEPTUNE_SPEED = 0.7;
 
     private double angle = 0;
+    private List<Star> stars = new ArrayList<>();
+    private Random random = new Random();
+
+    private void createStars(Group root) {
+
+        final int NUM_STARS = 1000;
+        final double STAR_DISTANCE = 2000;
+
+        double fov = 65;
+        double tanHalfFov = Math.tan(Math.toRadians(fov / 2));
+        double visibleHeight = STAR_DISTANCE * tanHalfFov * 2;
+        double visibleWidth = visibleHeight * (1200.0 / 800.0);
+
+        visibleWidth *= 1.5;
+        visibleHeight *= 1.5;
+
+        for (int i = 0; i < NUM_STARS; i++) {
+
+            double x = (random.nextDouble() - 0.5) * visibleWidth;
+            double y = (random.nextDouble() - 0.5) * visibleHeight;
+
+            Star star = new Star(x, y, STAR_DISTANCE);
+
+            double size = 1.0 + (random.nextDouble() * 1.5);
+            star.setRadius(size);
+
+            if (random.nextDouble() < 0.1) {
+                Color starColor = switch(random.nextInt(3)) {
+                    case 0 -> Color.rgb(255, 220, 220); //reddish
+                    case 1 -> Color.rgb(220, 220, 255); //bluish
+                    default -> Color.rgb(255, 255, 220); //yellowish
+                };
+                star.setFill(starColor);
+            }
+
+            stars.add(star);
+            root.getChildren().add(star);
+        }
+    }
 
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
+
+        createStars(root);
 
         Sphere sun = new Sphere(80);
         PhongMaterial sunMaterial = new PhongMaterial();
@@ -62,7 +126,7 @@ public class SolarSystemApp extends Application {
         camera.setFarClip(4000.0);
         camera.setFieldOfView(65);
 
-        Timeline timeline = new Timeline(
+        Timeline planetTimeline = new Timeline(
             new KeyFrame(Duration.ZERO, event -> {
                 angle += 0.5;
                 
@@ -86,8 +150,20 @@ public class SolarSystemApp extends Application {
                 }),
                 new KeyFrame(Duration.millis(1000.0 / 60)) //FPS
         );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        planetTimeline.setCycleCount(Timeline.INDEFINITE);
+        planetTimeline.play();
+
+        Timeline starTimeline = new Timeline(
+            new KeyFrame(Duration.ZERO, event -> {
+                for (int i = 0; i < 100; i++) {
+                    stars.get(random.nextInt(stars.size())).twinkle();
+                }
+                }),
+                new KeyFrame(Duration.millis(50))
+        );
+
+        starTimeline.setCycleCount(Timeline.INDEFINITE);
+        starTimeline.play();
 
         Scene scene = new Scene(root, 1200, 800, true);
         scene.setFill(Color.BLACK);
