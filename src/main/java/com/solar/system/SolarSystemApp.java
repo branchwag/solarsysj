@@ -119,7 +119,7 @@ public class SolarSystemApp extends Application {
         root.getChildren().addAll(pointLight, ambientLight);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-2000);
+        camera.setTranslateZ(-1800);
         camera.setTranslateY(-100);
         camera.setTranslateX(0);
         camera.setNearClip(0.1);
