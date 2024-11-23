@@ -54,26 +54,25 @@ public class SolarSystemApp extends Application {
     private Random random = new Random();
 
     private void createStars(Group root) {
-
         final int NUM_STARS = 1000;
-        final double STAR_DISTANCE = 2000;
+        final double STAR_DISTANCE = 10;
 
-        double fov = 65;
-        double tanHalfFov = Math.tan(Math.toRadians(fov / 2));
-        double visibleHeight = STAR_DISTANCE * tanHalfFov * 2;
-        double visibleWidth = visibleHeight * (1200.0 / 800.0);
+        double sceneWidth = 3200;
+        double sceneHeight = 2800;
 
-        visibleWidth *= 1.5;
-        visibleHeight *= 1.5;
+        double padding = 100;
+        double width = sceneWidth + (padding * 2);
+        double height = sceneHeight + (padding * 2);
 
         for (int i = 0; i < NUM_STARS; i++) {
 
-            double x = (random.nextDouble() - 0.5) * visibleWidth;
-            double y = (random.nextDouble() - 0.5) * visibleHeight;
+            double x = (random.nextDouble() * width) - (width / 2);
+            double y = (random.nextDouble() * height) - (height / 2);
+            double z = STAR_DISTANCE + (random.nextDouble() - 0.5) * 200;
 
-            Star star = new Star(x, y, STAR_DISTANCE);
+            Star star = new Star(x, y, z);
 
-            double size = 1.0 + (random.nextDouble() * 1.5);
+            double size = 0.5 + (random.nextDouble() * 2.0);
             star.setRadius(size);
 
             if (random.nextDouble() < 0.1) {
